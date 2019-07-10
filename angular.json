@@ -32,7 +32,8 @@
             "scripts": [
               {
                 "input": "node_modules/document-register-element/build/document-register-element.js"
-              }
+              },
+              "dist/ngelements/main.js"
             ]
           },
           "configurations": {
@@ -153,7 +154,10 @@
             "styles": [
               "apps/reactapp/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "dist/ngelements/polyfills.js",
+              "dist/ngelements/main.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -250,10 +254,26 @@
       "prefix": "ngelements",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "ngx-build-plus:build",
           "options": {
-            "tsConfig": "libs/core/tsconfig.lib.json",
-            "project": "libs/core/ng-package.json"
+            "outputPath": "dist/ngelements",
+            "index": "libs/core/src/lib/index.html",
+            "main": "libs/core/src/lib/elements.ts",
+            "polyfills": "libs/core/src/lib/polyfills.ts",
+            "tsConfig": "libs/core/tsconfig.lib.json"
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            }
           }
         },
         "lint": {
