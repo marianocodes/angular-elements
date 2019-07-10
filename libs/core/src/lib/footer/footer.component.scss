@@ -1,0 +1,25 @@
+footer {
+  align-items: center;
+  border-top: 1px solid #dadada;
+  display: flex;
+  height: 70px;
+  justify-content: flex-end;
+}
+
+ul {
+  display: inline;
+
+  li {
+    display: inline;
+    margin: 0 10px;
+  }
+}
+
+a {
+  color: #77909a;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

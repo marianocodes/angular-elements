@@ -1,0 +1,11 @@
+nav {
+  align-items: center;
+  box-shadow: 1px 0 10px #b9b9b9;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 25px;
+}
+
+::slotted(img) {
+  width: 200px;
+}

@@ -1,0 +1,17 @@
+<div class="card">
+  <figure (click)="isFilterActive = !isFilterActive; toggle.emit(isFilterActive)">
+    <div [class.filter]="isFilterActive" class="radius">
+      <img [src]="url" [alt]="name"/>
+    </div>
+    <caption>
+      {{ name }}
+    </caption>
+  </figure>
+
+  <div class="content">
+    <ul>
+      <li *ngIf="twitter as twitter">Twitter: {{ twitter }}</li>
+      <li *ngIf="instagram as instagram">Instagram: {{ instagram }}</li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+{
+  "npmScope": "ngelements",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "angularapp-e2e": {
+      "tags": []
+    },
+    "angularapp": {
+      "tags": []
+    },
+    "reactapp": {
+      "tags": []
+    },
+    "reactapp-e2e": {
+      "tags": []
+    },
+    "core": {
+      "tags": []
+    }
+  }
+}
