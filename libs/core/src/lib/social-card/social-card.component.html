@@ -10,8 +10,21 @@
 
   <div class="content">
     <ul>
-      <li *ngIf="twitter as twitter">Twitter: {{ twitter }}</li>
-      <li *ngIf="instagram as instagram">Instagram: {{ instagram }}</li>
+
+      <li *ngIf="twitter as twitter">
+        Twitter:
+        <a [href]="'https://www.instagram.com/' + twitter" target="_blank">
+          {{ twitter }}
+        </a>
+      </li>
+
+      <li *ngIf="instagram as instagram">
+        Instagram:
+        <a [href]="'https://twitter.com/' + instagram" target="_blank">
+          {{ instagram }}
+        </a>
+      </li>
+
     </ul>
   </div>
 </div>
