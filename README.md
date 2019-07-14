@@ -7,7 +7,7 @@ This is an example using Nx and the Angular CLI to create Angular Elements. NX i
 * Serve app `ng serve <appname>` e.g `ng serve angularapp`
 
 **Slides** 
-(English): TBD 
+https://speakerdeck.com/mahcr/angular-elements-7ae5e518-6675-4e17-a7f2-7a0e891eb16e
 
 **Post**
 TBD
@@ -29,7 +29,7 @@ Este es un ejemplo utilizando Nx y el Angular CLI para crear Angular Elements. N
 * Serve app `ng serve <appname>` e.g `ng serve angularapp`
 
 **Presentación** 
-Spanish: TBD 
+https://speakerdeck.com/mahcr/angular-elements-7ae5e518-6675-4e17-a7f2-7a0e891eb16e
 
 **Pueden seguirme:** [Twitter](https://twitter.com/malvarezcr) | [Medium](https://medium.com/@mahcr) | [Linkedin](https://www.linkedin.com/in/mahcr/)
 
