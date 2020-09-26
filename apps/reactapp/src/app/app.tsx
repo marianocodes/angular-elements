@@ -1,5 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
-
+import React from 'react';
 import './app.scss';
 
 let id = 0;
@@ -8,12 +7,11 @@ export const App = () => {
 
   const list = [
     { name: 'Manola', url: 'https://raw.githubusercontent.com/mahcr/angular-elements/master/example-assets/manola.png', instagram: '@hola.man0la' },
-
     { name: 'Mariano', twitter: '@malvarezcr', url: 'https://raw.githubusercontent.com/mahcr/angular-elements/master/example-assets/me.png', instagram: '@mah.cr' },
   ];
 
   return (
-    <Fragment>
+    <>
       <ui-nav>
         <img src="https://raw.githubusercontent.com/mahcr/angular-elements/master/example-assets/ng-horizontal.png" slot="logo-angular" />
         <img src="https://raw.githubusercontent.com/mahcr/angular-elements/master/example-assets/gdg-pv.png" slot="logo-gdg" />
@@ -37,10 +35,8 @@ export const App = () => {
 
       </main>
 
-
       <ui-footer></ui-footer>
-
-    </Fragment>
+    </>
   );
 };
 

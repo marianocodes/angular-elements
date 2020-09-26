@@ -1,12 +1,64 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "",
   "projects": {
+    "core": {
+      "projectType": "library",
+      "root": "libs/core",
+      "sourceRoot": "libs/core/src",
+      "prefix": "ui",
+      "architect": {
+        "build": {
+          "builder": "ngx-build-plus:build",
+          "options": {
+            "outputPath": "dist/ui",
+            "index": "libs/core/src/lib/index.html",
+            "main": "libs/core/src/lib/elements.ts",
+            "polyfills": "libs/core/src/lib/polyfills.ts",
+            "tsConfig": "libs/core/tsconfig.lib.json",
+            "styles": [
+              {
+                "input": "libs/core/src/lib/theme.scss",
+                "bundleName": "theme"
+              }
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "extractCss": true
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/core/tsconfig.lib.json",
+              "libs/core/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/core/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/core/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
     "angularapp": {
       "projectType": "application",
       "schematics": {
-        "@nrwl/workspace:component": {
+        "@schematics/angular:component": {
           "style": "scss"
         }
       },
@@ -22,20 +74,13 @@
             "main": "apps/angularapp/src/main.ts",
             "polyfills": "apps/angularapp/src/polyfills.ts",
             "tsConfig": "apps/angularapp/tsconfig.app.json",
+            "aot": true,
             "assets": [
               "apps/angularapp/src/favicon.ico",
               "apps/angularapp/src/assets"
             ],
-            "styles": [
-              "apps/angularapp/src/styles.scss",
-              "dist/ngelements/theme.css"
-            ],
-            "scripts": [
-              {
-                "input": "node_modules/document-register-element/build/document-register-element.js"
-              },
-              "dist/ngelements/main.js"
-            ]
+            "styles": ["apps/angularapp/src/styles.scss", "dist/ui/theme.css"],
+            "scripts": ["dist/ui/polyfills.js", "dist/ui/main.js"]
           },
           "configurations": {
             "production": {
@@ -50,7 +95,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -59,6 +103,11 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ]
             }
@@ -88,18 +137,14 @@
               "apps/angularapp/tsconfig.app.json",
               "apps/angularapp/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/angularapp/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/angularapp/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/angularapp/jest.config.js",
-            "tsConfig": "apps/angularapp/tsconfig.spec.json",
-            "setupFile": "apps/angularapp/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       }
@@ -125,11 +170,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "apps/angularapp-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/angularapp-e2e/**"
-            ]
+            "tsConfig": ["apps/angularapp-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/angularapp-e2e/**/*"]
           }
         }
       }
@@ -152,14 +194,9 @@
               "apps/reactapp/src/favicon.ico",
               "apps/reactapp/src/assets"
             ],
-            "styles": [
-              "apps/reactapp/src/styles.scss",
-              "dist/ngelements/theme.css"
-            ],
-            "scripts": [
-              "dist/ngelements/polyfills.js",
-              "dist/ngelements/main.js"
-            ]
+            "styles": ["apps/reactapp/src/styles.scss", "dist/ui/theme.css"],
+            "scripts": ["dist/ui/polyfills.js", "dist/ui/main.js"],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
           },
           "configurations": {
             "production": {
@@ -198,23 +235,21 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:lint",
           "options": {
+            "linter": "eslint",
             "tsConfig": [
               "apps/reactapp/tsconfig.app.json",
               "apps/reactapp/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/reactapp/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/reactapp/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/reactapp/jest.config.js",
-            "tsConfig": "apps/reactapp/tsconfig.spec.json"
+            "passWithNoTests": true
           }
         }
       }
@@ -238,91 +273,76 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:lint",
           "options": {
-            "tsConfig": "apps/reactapp-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/reactapp-e2e/**"
-            ]
+            "linter": "eslint",
+            "tsConfig": ["apps/reactapp-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/reactapp-e2e/**/*"]
           }
-        }
-      }
-    },
-    "core": {
-      "projectType": "library",
-      "root": "libs/core",
-      "sourceRoot": "libs/core/src",
-      "prefix": "ui",
-      "architect": {
-        "build": {
-          "builder": "ngx-build-plus:build",
-          "options": {
-            "outputPath": "dist/ngelements",
-            "index": "libs/core/src/lib/index.html",
-            "main": "libs/core/src/lib/elements.ts",
-            "polyfills": "libs/core/src/lib/polyfills.ts",
-            "tsConfig": "libs/core/tsconfig.lib.json",
-            "styles": [
-              {
-                "input": "libs/core/src/lib/theme.scss",
-                "lazy": true
-              }
-            ]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "outputHashing": "none",
-              "sourceMap": false,
-              "extractCss": true
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/core/tsconfig.lib.json",
-              "libs/core/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/core/**"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/core/jest.config.js",
-            "tsConfig": "libs/core/tsconfig.spec.json",
-            "setupFile": "libs/core/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
         }
       }
     }
   },
   "cli": {
-    "warnings": {
-      "typescriptMismatch": false,
-      "versionMismatch": false
-    },
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "bb35317c-f379-408a-95da-5e2b78f74c78"
   },
   "schematics": {
+    "@nrwl/workspace": {
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/cypress": {
+      "cypress-project": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/node": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/nest": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/express": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
     "@nrwl/angular:application": {
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress"
     },
     "@nrwl/angular:library": {
       "unitTestRunner": "jest"
+    },
+    "@nrwl/react": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "scss"
+      },
+      "library": {
+        "style": "scss",
+        "linter": "eslint"
+      }
     }
   },
-  "defaultProject": "angularapp"
+  "defaultProject": "reactapp"
 }
