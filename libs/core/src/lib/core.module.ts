@@ -17,6 +17,7 @@ export class CoreModule {
   constructor(private injector: Injector) { }
 
   public ngDoBootstrap() {
+    
     let component;
 
     component = createCustomElement(NavComponent, { injector: this.injector });

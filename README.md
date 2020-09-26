@@ -3,8 +3,8 @@
 This is an example using Nx and the Angular CLI to create Angular Elements. NX is used to scaffold the React and Angular apps in a monorepo using the same commands to run the app. 
 
 **Init Project**
-* Build Elements `ng build core --prod  --single-bundle true --keep-polyfills true`
-* Serve app `ng serve <appname>` e.g `ng serve angularapp`
+* Build Elements `nx build core --prod  --single-bundle true --keep-polyfills true`
+* Serve app `nx serve <appname>` e.g `nx serve angularapp`
 
 **Slides** 
 https://speakerdeck.com/mahcr/angular-elements-7ae5e518-6675-4e17-a7f2-7a0e891eb16e

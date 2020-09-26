@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ngelements/core": ["libs/core/src/index.ts"]
+      "@ui/elements": ["libs/core/src/index.ts"],
+      "@pub": ["libs/pub/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

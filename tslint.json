@@ -3,6 +3,9 @@
     "node_modules/@nrwl/workspace/src/tslint",
     "node_modules/codelyzer"
   ],
+  "linterOptions": {
+    "exclude": ["**/*"]
+  },
   "rules": {
     "arrow-return-shorthand": true,
     "callable-types": true,
@@ -53,6 +56,7 @@
     "nx-enforce-module-boundaries": [
       true,
       {
+        "enforceBuildableLibDependency": true,
         "allow": [],
         "depConstraints": [
           {
